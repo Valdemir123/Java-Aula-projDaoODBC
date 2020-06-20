@@ -51,10 +51,10 @@ public class DB {
 		}
 	}
 	
-	public static void closeStatement(Statement _St) {
-		if (_St != null) {
+	public static void closeStatement(Statement _st) {
+		if (_st != null) {
 			try {
-				_St.close();
+				_st.close();
 			} 
 			catch (SQLException e) {
 				throw new dbException(e.getMessage());
@@ -62,10 +62,10 @@ public class DB {
 		}
 	}
 	
-	public static void closeResultSet(ResultSet _Rs) {
-		if (_Rs != null) {
+	public static void closeResultSet(ResultSet _rs) {
+		if (_rs != null) {
 			try {
-				_Rs.close();
+				_rs.close();
 			} 
 			catch (SQLException e) {
 				throw new dbException(e.getMessage());

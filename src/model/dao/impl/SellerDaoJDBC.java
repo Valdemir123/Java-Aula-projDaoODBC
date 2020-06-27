@@ -1,7 +1,6 @@
 package model.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +23,6 @@ public class SellerDaoJDBC implements SellerDao {
 		_cn = _conn;
 	}
 	
-
 	@Override
 	public void Insert(Seller obj) {
 		PreparedStatement _st = null;
@@ -47,11 +45,11 @@ public class SellerDaoJDBC implements SellerDao {
 				if(_rs.next()) {
 					int _id = _rs.getInt(1);
 					obj.setId(_id);
-				} else {
-					DB.closeResultSet(_rs);
-				}
+				} 
+				DB.closeResultSet(_rs);
+				
 			} else {
-				throw new dbException("Erro inexperado, nenhum linha afetada !");
+				throw new dbException("Erro inesperado, nenhum linha afetada !");
 			}
 			
 		} catch(SQLException e) {
@@ -69,8 +67,8 @@ public class SellerDaoJDBC implements SellerDao {
 		try {
 			_st = _cn.prepareStatement(
 					"Update Seller"
-					+" SET Name=?, Email=?, BirthDate=?, BaseSalary=?, DepartmentId=?"
-					+" WHERE Id=? ");
+					+" Set Name=?, Email=?, BirthDate=?, BaseSalary=?, DepartmentId=?"
+					+" Where Id=? ");
 			_st.setString(1, obj.getName());
 			_st.setString(2, obj.getEmail());
 			_st.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));
@@ -167,10 +165,10 @@ public class SellerDaoJDBC implements SellerDao {
 		
 		try {
 			_st = _cn.prepareStatement(
-					"Select sel.*, dep.Name as DepName"
+					"Select dep.Name as DepName, sel.*"
 					+" From Seller as sel"
 					+" Inner Join Department as dep on dep.Id = sel.DepartmentId"
-					+" Order by sel.Name");
+					+" Order by dep.Name,sel.Name");
 						
 			List<Seller> _List = new ArrayList<>();
 			Map<Integer, Department> _map = new HashMap<>();

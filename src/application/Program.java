@@ -38,6 +38,10 @@ public class Program {
 		Seller _NewSeller = new Seller(null, "Greg", "greg@email.com", new Date(), 4000.0, _dep);
 		sellerDao.Insert(_NewSeller);
 		System.out.println("Inserted! new id: "+_NewSeller.getId());
+		_list = sellerDao.FindAll();
+		for (Seller _loop : _list) {
+			System.out.println(_loop);
+		}
 		
 		System.out.println("\n==Teste 5== Seller Update");
 		_seller = sellerDao.FindById(1);
@@ -51,6 +55,10 @@ public class Program {
 		int _id = _sc.nextInt();
 		sellerDao.DeleteById(_id);
 		System.out.println("Delete Afected!");
+		_list = sellerDao.FindAll();
+		for (Seller _loop : _list) {
+			System.out.println(_loop);
+		}
 		
 		_sc.close();
 	}
